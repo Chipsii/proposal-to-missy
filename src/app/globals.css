@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #2b0614;
+  --foreground: #fff5f8;
+  --rose-50: #fff4f6;
+  --rose-100: #ffe4ea;
+  --rose-300: #f8a8bb;
+  --rose-500: #ec5f86;
+  --rose-700: #b21e4b;
+  --wine-700: #6f102d;
+  --wine-900: #25030e;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html,
+body {
+  min-height: 100%;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-nunito), sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  overscroll-behavior: none;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  overflow-y: auto;
+  touch-action: manipulation;
+  background:
+    radial-gradient(circle at top, rgba(255, 175, 196, 0.2), transparent 36%),
+    radial-gradient(circle at bottom, rgba(236, 95, 134, 0.22), transparent 34%),
+    linear-gradient(180deg, #4d0a21 0%, #25030e 52%, #180108 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+canvas {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.font-display {
+  font-family: var(--font-cormorant), serif;
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
 }
