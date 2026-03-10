@@ -100,6 +100,7 @@ function FloatingHearts() {
 export function ProposalExperience() {
   const arenaRef = useRef<HTMLDivElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const modalAudioRef = useRef<HTMLAudioElement | null>(null);
   const heartIdRef = useRef(0);
   const burstIdRef = useRef(0);
   const initializedPlayerRef = useRef(false);
@@ -201,6 +202,35 @@ export function ProposalExperience() {
       audio.muted = false;
     };
   }, [gameActive]);
+
+  useEffect(() => {
+    const audio = modalAudioRef.current;
+
+    if (!audio) {
+      return;
+    }
+
+    if (!isUnlocked) {
+      audio.pause();
+      audio.currentTime = 0;
+      return;
+    }
+
+    audio.volume = 0.24;
+
+    void audio.play().catch(() => {
+      audio.muted = true;
+      void audio.play().catch(() => {
+        audio.muted = false;
+      });
+    });
+
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.muted = false;
+    };
+  }, [isUnlocked]);
 
   useEffect(() => {
     if (!gameActive) {
@@ -412,6 +442,7 @@ export function ProposalExperience() {
   return (
     <main className="relative h-dvh w-full overflow-hidden bg-[linear-gradient(180deg,#12020b_0%,#2a0413_45%,#0d0208_100%)] text-rose-50">
       <audio ref={audioRef} loop preload="auto" src="/nyan-cat.mp3" />
+      <audio ref={modalAudioRef} loop preload="auto" src="/domestic-pressures.mp3" />
 
       <FloatingHearts />
 
